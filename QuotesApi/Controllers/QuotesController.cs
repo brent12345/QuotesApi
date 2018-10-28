@@ -6,13 +6,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace QuotesApi.Controllers
 {
+    
     public class QuotesController : ApiController
     {
         QuotesDbContext quotesDbContext = new QuotesDbContext();
         // GET: api/Quotes
+       
+       
         public IHttpActionResult Get()
         {
             var quote =  quotesDbContext.Quotes;
