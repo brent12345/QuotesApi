@@ -37,6 +37,23 @@ namespace QuotesApi.Controllers
             return Ok(quotes);
      
         }
+
+        [HttpGet]
+        [Route("api/Quotes/PagingQuote/{pageNumber=1}/{pageSize=5}")]
+        public IHttpActionResult PageingQuote(int pageNumber, int pageSize)
+        {
+            var quotes = quotesDbContext.Quotes.OrderBy(q => q.Id);
+            return Ok(quotes.Skip((pageNumber - 1) * pageSize).Take(pageSize));
+        }
+
+        [HttpGet]
+        [Route("api/Quotes/SearchQuote/{type=}")]
+        public IHttpActionResult SearchQuote (string type)
+        {
+           var quotes = quotesDbContext.Quotes.Where(q => q.Type.StartsWith(type));
+            return Ok(quotes);
+        }
+
         [HttpGet]
         [Route("api/Quotes/Test/{id}")]
         public int Test(int id)
